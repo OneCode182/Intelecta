@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Intelecta · Business Consulting — Retención de Talento Crítico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          carmesi: { DEFAULT: '#5b1e2d', 600:'#6e2638', 700:'#5b1e2d', 800:'#481723', 900:'#330f18' },
+          ink:     { DEFAULT: '#111827', 800:'#1a2230', 700:'#262f3f' },
+          mist:    { DEFAULT: '#6b7280', 400:'#9aa1ac', 200:'#d9dce1' },
+          ivory:   { DEFAULT: '#f9faf7', 100:'#f3f4ef', 200:'#e7e9e1' },
+        },
+        fontFamily: {
+          serif: ['"Playfair Display"', 'Georgia', 'serif'],
+          sans:  ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono:  ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Manrope', sans-serif; background: #f9faf7; color:#111827; -webkit-font-smoothing: antialiased; }
+  .font-serif { font-feature-settings: "lnum" 1, "kern" 1; letter-spacing: -0.01em; }
+  .h-display { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.04; letter-spacing: -0.025em; }
+  .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; }
+
+  /* dot-pattern overlay (re-creates brand dot motif in carmesí) */
+  .dot-pattern {
+    background-image: radial-gradient(circle, #5b1e2d 1.1px, transparent 1.4px);
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+  .dot-pattern-ivory {
+    background-image: radial-gradient(circle, rgba(91,30,45,0.18) 1.1px, transparent 1.4px);
+    background-size: 22px 22px;
+  }
+  .dot-pattern-light {
+    background-image: radial-gradient(circle, rgba(249,250,247,0.16) 1.1px, transparent 1.4px);
+    background-size: 22px 22px;
+  }
+
+  /* CTA button hover lift */
+  .btn-primary { background: #5b1e2d; color:#f9faf7; transition: transform .25s ease, box-shadow .25s ease, background .25s ease; box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 8px 24px -10px rgba(91,30,45,.45); }
+  .btn-primary:hover { background:#481723; transform: translateY(-1px); box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 14px 32px -12px rgba(91,30,45,.55); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-ghost { transition: color .2s ease, border-color .2s ease, background .2s ease; }
+  .btn-ghost:hover { color:#5b1e2d; }
+
+  /* Card hover */
+  .lift { transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease; }
+  .lift:hover { transform: translateY(-3px); box-shadow: 0 30px 60px -34px rgba(17,24,39,.25); border-color: rgba(91,30,45,.25); }
+
+  /* Hairline rule */
+  .rule { height:1px; background: linear-gradient(to right, transparent, rgba(17,24,39,.18), transparent); }
+  .rule-dark { height:1px; background: linear-gradient(to right, transparent, rgba(249,250,247,.18), transparent); }
+
+  /* Field focus */
+  .field { transition: border-color .2s ease, background .2s ease, box-shadow .2s ease; }
+  .field:focus { outline: none; border-color: #5b1e2d; box-shadow: 0 0 0 4px rgba(91,30,45,.10); background:#fff; }
+
+  /* Accordion content */
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+  .acc-icon { transition: transform .3s ease; }
+  details[open] .acc-icon { transform: rotate(45deg); }
+  details[open] .acc-body { animation: fadein .35s ease both; }
+  @keyframes fadein { from { opacity:0; transform: translateY(-4px);} to { opacity:1; transform: translateY(0);} }
+
+  /* Marquee/strip */
+  .strip-bg { background: #111827; }
+
+  /* Phase number serif numerals */
+  .phase-num { font-family: 'Playfair Display', serif; font-style: italic; }
+
+  /* Logo mark - reproduce brand "I" with arrow */
+  .mark-i {
+    display:inline-block; width:18px; height:24px; position:relative;
+    background:#111827;
+  }
+  .mark-i::after {
+    content:""; position:absolute; left:-7px; top:-2px; width:18px; height:28px;
+    border: 2.5px solid #5b1e2d; border-top:none; border-left:none;
+    border-radius: 0 60% 0 0;
+    transform: rotate(-8deg);
+  }
+  .mark-on-dark { background:#f9faf7; }
+  .mark-on-dark::after { border-color:#f9faf7; opacity:.85; }
+
+  /* Subtle reveal */
+  .reveal { opacity:0; transform: translateY(14px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in { opacity:1; transform: translateY(0); }
+
+  /* Bento grid hover halo */
+  .bento { position:relative; overflow:hidden; }
+  .bento::before {
+    content:""; position:absolute; inset:-1px; pointer-events:none;
+    background: radial-gradient(600px 200px at var(--mx,50%) var(--my,0%), rgba(91,30,45,.10), transparent 60%);
+    opacity:0; transition: opacity .35s ease;
+  }
+  .bento:hover::before { opacity:1; }
+
+  /* tabular numerals */
+  .num { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    /* ───────────────────────── Atomic pieces ───────────────────────── */
+
+    const Logo = ({ dark=false, size=28, withTagline=false }) => (
+      <div className="flex items-center gap-3">
+        <svg width={size} height={size*1.05} viewBox="0 0 60 64" fill="none" aria-label="Intelecta">
+          {/* tall I bar */}
+          <rect x="22" y="6" width="16" height="52" fill={dark ? "#f9faf7" : "#111827"} />
+          {/* the carmesí arc/arrow swooping over */}
+          <path d="M30 10 C 44 14, 52 28, 44 50 C 40 56, 30 58, 26 56"
+                stroke="#5b1e2d" strokeWidth="5.5" strokeLinecap="round" fill="none" />
+          <path d="M44 36 L 52 30 L 50 40 Z" fill="#5b1e2d" />
+        </svg>
+        <div className="leading-tight">
+          <div className={`h-display text-[22px] ${dark ? 'text-ivory' : 'text-ink'}`} style={{letterSpacing:'-0.01em'}}>
+            Intelecta
+          </div>
+          {withTagline && (
+            <div className={`eyebrow ${dark ? 'text-ivory/70' : 'text-mist'}`} style={{fontSize:'9px', letterSpacing:'0.3em'}}>
+              Business Consulting
+            </div>
+          )}
+        </div>
+      </div>
+    );
+
+    const Eyebrow = ({ children, dark=false, className="" }) => (
+      <div className={`eyebrow inline-flex items-center gap-2 ${dark ? 'text-ivory/70' : 'text-carmesi'} ${className}`}>
+        <span className={`h-px w-6 ${dark ? 'bg-ivory/40' : 'bg-carmesi/50'}`}></span>
+        {children}
+      </div>
+    );
+
+    /* ───────────────────────── NAV ───────────────────────── */
+
+    const Nav = () => {
+      const [scrolled, setScrolled] = useState(false);
+      const [openM, setOpenM] = useState(false);
+      useEffect(() => {
+        const onS = () => setScrolled(window.scrollY > 12);
+        window.addEventListener('scroll', onS, { passive:true });
+        return () => window.removeEventListener('scroll', onS);
+      }, []);
+      const links = [
+        ['#problema',  'El problema'],
+        ['#metodo',    'Método'],
+        ['#entregables','Entregables'],
+        ['#prueba',    'Resultados'],
+        ['#faq',       'Preguntas'],
+      ];
+      return (
+        <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-ivory/85 backdrop-blur-md border-b border-ink/5' : 'bg-transparent'}`}>
+          <div className="max-w-[1280px] mx-auto px-6 md:px-10 h-[76px] flex items-center justify-between">
+            <a href="#top" className="flex items-center"><Logo size={26} withTagline /></a>
+            <nav className="hidden lg:flex items-center gap-9">
+              {links.map(([h, l]) => (
+                <a key={h} href={h} className="text-sm text-ink/75 hover:text-carmesi btn-ghost">
+                  {l}
+                </a>
+              ))}
+            </nav>
+            <div className="flex items-center gap-3">
+              <a href="#hero-form" className="hidden md:inline-flex btn-primary rounded-full px-5 py-2.5 text-[13px] font-semibold tracking-wide">
+                Agendar Diagnóstico
+              </a>
+              <button onClick={()=>setOpenM(o=>!o)} className="lg:hidden w-10 h-10 grid place-items-center rounded-full border border-ink/15">
+                <span className="block w-4 h-px bg-ink mb-1.5"></span>
+                <span className="block w-4 h-px bg-ink"></span>
+              </button>
+            </div>
+          </div>
+          {openM && (
+            <div className="lg:hidden bg-ivory border-t border-ink/10 px-6 py-5">
+              {links.map(([h, l]) => (
+                <a key={h} href={h} onClick={()=>setOpenM(false)} className="block py-2 text-ink/80">{l}</a>
+              ))}
+              <a href="#hero-form" onClick={()=>setOpenM(false)} className="mt-3 inline-flex btn-primary rounded-full px-5 py-2.5 text-sm">
+                Agendar Diagnóstico
+              </a>
+            </div>
+          )}
+        </header>
+      );
+    };
+
+    /* ───────────────────────── HERO ───────────────────────── */
+
+    const HeroForm = () => {
+      const [form, setForm] = useState({ name:'', role:'', email:'' });
+      const [err, setErr]   = useState({});
+      const [sent, setSent] = useState(false);
+
+      const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+      const submit = (e) => {
+        e.preventDefault();
+        const er = {};
+        if (!form.name.trim())  er.name  = 'Ingrese su nombre';
+        if (!form.role.trim())  er.role  = 'Ingrese su cargo';
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) er.email = 'Correo empresarial inválido';
+        setErr(er);
+        if (Object.keys(er).length === 0) setSent(true);
+      };
+
+      if (sent) {
+        return (
+          <div className="bg-white border border-ink/10 rounded-2xl p-8 md:p-9 shadow-[0_30px_80px_-40px_rgba(17,24,39,0.25)]">
+            <Eyebrow>Solicitud recibida</Eyebrow>
+            <h3 className="h-display text-[28px] mt-3 text-ink">Gracias, {form.name.split(' ')[0]}.</h3>
+            <p className="text-ink/70 mt-2 leading-relaxed">
+              Un consultor senior se pondrá en contacto en menos de 24 horas hábiles para
+              coordinar su <span className="text-carmesi font-semibold">Diagnóstico de Riesgos</span>.
+            </p>
+            <div className="rule my-6"></div>
+            <div className="text-sm text-mist">
+              Mientras tanto, conozca cómo trabajamos en <a href="#metodo" className="text-carmesi font-semibold hover:underline">nuestro método de 12 semanas →</a>
+            </div>
+          </div>
+        );
+      }
+
+      return (
+        <form onSubmit={submit} id="hero-form" className="bg-white border border-ink/10 rounded-2xl p-7 md:p-8 shadow-[0_30px_80px_-40px_rgba(17,24,39,0.25)] relative">
+          <div className="absolute -top-3 left-7 bg-carmesi text-ivory eyebrow px-3 py-1.5 rounded-full">
+            Diagnóstico sin costo
+          </div>
+          <h3 className="h-display text-[26px] md:text-[28px] text-ink leading-tight">
+            Agende su <em className="font-normal italic text-carmesi">diagnóstico</em> ejecutivo
+          </h3>
+          <p className="text-sm text-ink/60 mt-2 mb-6 leading-relaxed">
+            Reservamos sólo 6 sesiones por trimestre. Confidencialidad garantizada.
+          </p>
+
+          <div className="space-y-4">
+            <Field label="Nombre completo" value={form.name} onChange={set('name')} placeholder="María Fernanda López" err={err.name} />
+            <Field label="Cargo en la empresa" value={form.role} onChange={set('role')} placeholder="Director / CEO / Head of People" err={err.role} />
+            <Field label="Correo empresarial"  value={form.email} onChange={set('email')} type="email" placeholder="nombre@empresa.com" err={err.email} />
+          </div>
+
+          <button type="submit" className="btn-primary w-full mt-6 rounded-xl py-4 text-[14px] font-semibold tracking-wide inline-flex items-center justify-center gap-2">
+            Agendar Diagnóstico de Riesgos
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </button>
+          <p className="text-[11px] text-mist text-center mt-4 leading-relaxed">
+            Al enviar acepta nuestra política de confidencialidad. No compartimos datos con terceros.
+          </p>
+        </form>
+      );
+    };
+
+    const Field = ({ label, value, onChange, type='text', placeholder, err }) => (
+      <label className="block">
+        <span className="eyebrow text-ink/60 block mb-1.5" style={{fontSize:'10px'}}>{label}</span>
+        <input
+          type={type} value={value} onChange={onChange} placeholder={placeholder}
+          className={`field w-full bg-ivory/70 border ${err ? 'border-carmesi' : 'border-ink/12'} rounded-xl px-4 py-3 text-[14px] text-ink placeholder:text-mist/80`}
+        />
+        {err && <span className="text-[11px] text-carmesi mt-1 block">{err}</span>}
+      </label>
+    );
+
+    const Hero = () => (
+      <section id="top" className="relative pt-[110px] pb-20 md:pb-28 overflow-hidden">
+        {/* Dot pattern accent — top right corner */}
+        <div className="absolute top-[80px] right-[-60px] w-[440px] h-[260px] dot-pattern-ivory opacity-90 pointer-events-none"></div>
+        {/* Carmesí ribbon, very thin, top */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-carmesi to-transparent opacity-40"></div>
+
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-16 items-start">
+          <div className="pt-4 lg:pt-10">
+            <Eyebrow>Consultoría · Retención · Cultura</Eyebrow>
+            <h1 className="h-display text-[42px] sm:text-[54px] lg:text-[64px] mt-5 text-ink text-balance">
+              Frenamos la <em className="italic font-normal text-carmesi">rotación</em> de talento crítico y elevamos el <span className="relative inline-block">
+                rendimiento
+                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 220 10" preserveAspectRatio="none" height="8">
+                  <path d="M2 7 C 60 1, 160 1, 218 6" stroke="#5b1e2d" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+                </svg>
+              </span> de su equipo.
+            </h1>
+            <p className="mt-7 text-[17px] md:text-[18px] leading-relaxed text-ink/70 max-w-[58ch]">
+              Transformamos su organización en un entorno de alto rendimiento mediante un
+              sistema probado de retención y cultura organizacional —donde el capital
+              intelectual se preserva como el activo más valioso de su empresa.
+            </p>
+
+            {/* Trust line */}
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <Stat num="$45K" label="USD ahorro anual proyectado" />
+              <Divider />
+              <Stat num="12" label="semanas, plan completo" />
+              <Divider />
+              <Stat num="50–500" label="empleados, segmento foco" />
+            </div>
+
+            {/* Endorsement micro-strip */}
+            <div className="mt-10 flex items-center gap-3 text-[12px] text-mist">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1L10 6L15 6L11 9L13 14L8 11L3 14L5 9L1 6L6 6Z" stroke="#5b1e2d" strokeWidth="1.2" strokeLinejoin="round"/>
+              </svg>
+              <span>Metodología desarrollada con la <span className="text-ink/80 font-semibold">Escuela Colombiana de Ingeniería Julio Garavito</span></span>
+            </div>
+          </div>
+
+          {/* Form column */}
+          <div className="relative">
+            <div className="absolute -top-8 -right-8 w-[180px] h-[180px] dot-pattern-ivory opacity-70 rounded-2xl pointer-events-none hidden md:block"></div>
+            <HeroForm />
+          </div>
+        </div>
+      </section>
+    );
+
+    const Stat = ({ num, label }) => (
+      <div>
+        <div className="h-display text-[34px] text-ink num leading-none">{num}</div>
+        <div className="text-[12px] text-mist mt-1.5 max-w-[20ch] leading-snug">{label}</div>
+      </div>
+    );
+    const Divider = () => <div className="hidden md:block h-10 w-px bg-ink/10"></div>;
+
+    /* ───────────────────────── PROBLEM (dark) ───────────────────────── */
+
+    const Problem = () => {
+      const pains = [
+        { k:'01', t:'Cuello de botella ejecutivo', d:'Las decisiones críticas dependen de usted porque no hay un sistema que distribuya criterio en el equipo.' },
+        { k:'02', t:'Pérdida silenciosa de capital', d:'Cada renuncia inesperada se lleva conocimiento, relaciones y entrenamiento que no figuran en ningún balance.' },
+        { k:'03', t:'Cultura reactiva', d:'Apaga incendios en lugar de construir el entorno de alto rendimiento que el negocio necesita para escalar.' },
+      ];
+      return (
+        <section id="problema" className="bg-ink text-ivory relative overflow-hidden">
+          {/* dot pattern bg */}
+          <div className="absolute inset-0 dot-pattern-light opacity-50"></div>
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-carmesi/50 to-transparent"></div>
+
+          <div className="relative max-w-[1280px] mx-auto px-6 md:px-10 py-24 md:py-32">
+            <Eyebrow dark>Diagnóstico · El verdadero costo</Eyebrow>
+            <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-12 lg:gap-20 mt-6 items-end">
+              <h2 className="h-display text-[36px] md:text-[52px] lg:text-[58px] text-ivory text-balance leading-[1.05]">
+                <span className="text-mist">¿Siente que pasa el</span> <span className="text-ivory num">80%</span> <span className="text-mist">de su tiempo resolviendo</span> conflictos internos <span className="text-mist">o buscando reemplazos para</span> gente clave<span className="text-carmesi">?</span>
+              </h2>
+              <p className="text-mist text-[15px] md:text-[16px] leading-relaxed max-w-[40ch]">
+                La rotación de un solo cargo directivo puede costarle entre <span className="text-ivory font-semibold">9 y 24 meses de salario</span>. Si no lo mide, lo paga.
+              </p>
+            </div>
+
+            <div className="rule-dark my-16"></div>
+
+            <div className="grid md:grid-cols-3 gap-px bg-ivory/8">
+              {pains.map(p => (
+                <div key={p.k} className="bg-ink p-8 md:p-10 lift border border-transparent">
+                  <div className="flex items-baseline gap-4">
+                    <span className="phase-num text-carmesi text-[44px] leading-none">{p.k}</span>
+                    <div className="h-px flex-1 bg-ivory/15 translate-y-[-6px]"></div>
+                  </div>
+                  <h3 className="h-display text-[22px] md:text-[24px] mt-6 text-ivory leading-tight">{p.t}</h3>
+                  <p className="text-mist text-[14px] mt-3 leading-relaxed">{p.d}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    /* ───────────────────────── VALUE PROP ───────────────────────── */
+
+    const Value = () => {
+      const pillars = [
+        {
+          icon: (
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="3" y="9" width="6" height="13" stroke="#5b1e2d" strokeWidth="1.5"/>
+              <rect x="11" y="5" width="6" height="17" stroke="#5b1e2d" strokeWidth="1.5"/>
+              <rect x="19" y="12" width="6" height="10" stroke="#5b1e2d" strokeWidth="1.5"/>
+            </svg>
+          ),
+          eyebrow: 'Segmento foco',
+          title: 'Empresas en expansión',
+          body: 'Diseñado para organizaciones de 50–500 empleados en tecnología, fintech, agencias creativas y manufactura especializada.',
+          meta: '50 – 500 empleados',
+        },
+        {
+          icon: (
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M14 3L24 8V14C24 19 19.5 23 14 25C8.5 23 4 19 4 14V8L14 3Z" stroke="#5b1e2d" strokeWidth="1.5" strokeLinejoin="round"/>
+              <path d="M10 14L13 17L18 11" stroke="#5b1e2d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          ),
+          eyebrow: 'Preservación',
+          title: 'Capital intelectual blindado',
+          body: 'Mitigamos riesgos operativos preservando el conocimiento, las relaciones y el criterio que ya viven dentro de su empresa.',
+          meta: 'Mitigación de riesgo',
+        },
+        {
+          icon: (
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M4 22L11 15L15 19L24 8" stroke="#5b1e2d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M18 8H24V14" stroke="#5b1e2d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          ),
+          eyebrow: 'Impacto financiero',
+          title: 'Ahorros medibles',
+          body: 'Hasta $45.000 USD anuales al evitar la rotación de perfiles directivos. Tasa de retorno verificable trimestre a trimestre.',
+          meta: '$45.000 USD / año',
+        },
+        {
+          icon: (
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="11" stroke="#5b1e2d" strokeWidth="1.5"/>
+              <circle cx="14" cy="14" r="6" stroke="#5b1e2d" strokeWidth="1.5"/>
+              <circle cx="14" cy="14" r="1.7" fill="#5b1e2d"/>
+            </svg>
+          ),
+          eyebrow: 'Método',
+          title: 'Decisiones basadas en datos',
+          body: 'Un roadmap de transformación construido sobre métricas y procesos —no en dinámicas superficiales ni recetas genéricas.',
+          meta: 'Data + procesos',
+        },
+      ];
+      return (
+        <section className="py-24 md:py-32 relative">
+          <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+            <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-end mb-16">
+              <div>
+                <Eyebrow>Propuesta de valor</Eyebrow>
+                <h2 className="h-display text-[40px] md:text-[52px] mt-5 text-ink text-balance leading-[1.05]">
+                  Cuatro pilares que <em className="italic font-normal text-carmesi">cambian</em> la conversación con su comité directivo.
+                </h2>
+              </div>
+              <p className="text-[16px] md:text-[17px] text-ink/65 leading-relaxed lg:pb-3">
+                No vendemos talleres. Diseñamos infraestructura humana medible, alineada a su P&amp;L, que vuelve a su organización resistente a la rotación y al ruido del mercado.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-px bg-ink/8 border border-ink/8 rounded-3xl overflow-hidden">
+              {pillars.map((p, i) => (
+                <article key={i} className="bg-ivory p-9 md:p-10 lift relative">
+                  <div className="flex items-center justify-between">
+                    <div className="w-12 h-12 rounded-xl bg-carmesi/8 grid place-items-center">{p.icon}</div>
+                    <span className="eyebrow text-mist">{p.eyebrow}</span>
+                  </div>
+                  <h3 className="h-display text-[26px] md:text-[28px] mt-7 text-ink leading-tight">{p.title}</h3>
+                  <p className="text-ink/70 text-[15px] mt-3 leading-relaxed">{p.body}</p>
+                  <div className="mt-6 pt-5 border-t border-ink/8 flex items-center justify-between">
+                    <span className="text-[12px] text-carmesi font-semibold tracking-wide">{p.meta}</span>
+                    <span className="phase-num text-mist/40 text-[28px] leading-none">{String(i+1).padStart(2,'0')}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    /* ───────────────────────── METHOD / TIMELINE ───────────────────────── */
+
+    const Method = () => {
+      const phases = [
+        {
+          tag: 'Fase 1',
+          weeks: '4 semanas',
+          title: 'Diagnóstico',
+          body: 'Auditoría de seguridad psicológica y análisis contable de las pérdidas reales generadas por rotación.',
+          bullets: ['Entrevistas confidenciales', 'Mapeo de riesgo por área', 'Cuantificación financiera'],
+        },
+        {
+          tag: 'Fase 2',
+          weeks: '3 semanas',
+          title: 'Arquitectura',
+          body: 'Alineación de las metas de facturación con las habilidades críticas y el diseño organizacional vigente.',
+          bullets: ['Matriz de competencias', 'Mapa de dependencias', 'Diseño de roles clave'],
+        },
+        {
+          tag: 'Fase 3',
+          weeks: '5 semanas',
+          title: 'Roadmap',
+          body: 'Plan de acción de 90 días con rituales de feedback, dueños de proceso y cultura de alto rendimiento.',
+          bullets: ['Rituales semanales', 'Manual de gestión', 'Scorecards mensuales'],
+        },
+      ];
+      return (
+        <section id="metodo" className="bg-ivory-100 py-24 md:py-32 relative overflow-hidden">
+          <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[200px] dot-pattern-ivory opacity-60 pointer-events-none"></div>
+
+          <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
+            <div className="text-center max-w-[760px] mx-auto">
+              <Eyebrow className="justify-center"><span className="mx-auto">El método · 12 semanas</span></Eyebrow>
+              <h2 className="h-display text-[40px] md:text-[54px] mt-5 text-ink leading-[1.05] text-balance">
+                Tres fases. Un sistema. <em className="italic font-normal text-carmesi">Resultados medibles</em>.
+              </h2>
+              <p className="mt-6 text-ink/65 text-[16px] md:text-[17px] leading-relaxed">
+                Un proceso estructurado que convierte la incertidumbre cultural en
+                una hoja de ruta operativa con dueños, plazos y métricas.
+              </p>
+            </div>
+
+            {/* Timeline */}
+            <div className="mt-20 relative">
+              {/* line */}
+              <div className="hidden md:block absolute top-[42px] left-[8%] right-[8%] h-px bg-ink/15"></div>
+              <div className="hidden md:block absolute top-[39px] left-[8%] w-[60%] h-[7px] bg-gradient-to-r from-carmesi to-carmesi/30 rounded-full"></div>
+
+              <div className="grid md:grid-cols-3 gap-10 md:gap-8 relative">
+                {phases.map((p, i) => (
+                  <div key={i} className="relative">
+                    {/* node */}
+                    <div className="flex md:justify-center mb-8 md:mb-12 relative z-10">
+                      <div className="w-[88px] h-[88px] rounded-full bg-ivory border border-ink/10 grid place-items-center shadow-[0_18px_40px_-22px_rgba(91,30,45,0.4)]">
+                        <div className="w-[64px] h-[64px] rounded-full bg-carmesi text-ivory grid place-items-center">
+                          <div className="text-center leading-none">
+                            <div className="phase-num text-[28px] italic">{String(i+1).padStart(2,'0')}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-ivory border border-ink/8 rounded-2xl p-7 md:p-8 lift">
+                      <div className="flex items-center justify-between">
+                        <span className="eyebrow text-carmesi">{p.tag}</span>
+                        <span className="text-[12px] text-mist font-medium">{p.weeks}</span>
+                      </div>
+                      <h3 className="h-display text-[28px] md:text-[30px] mt-4 text-ink">{p.title}</h3>
+                      <p className="text-ink/65 text-[14.5px] mt-3 leading-relaxed">{p.body}</p>
+
+                      <ul className="mt-6 space-y-2.5">
+                        {p.bullets.map((b, j) => (
+                          <li key={j} className="flex items-start gap-3 text-[14px] text-ink/80">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="mt-1 shrink-0">
+                              <path d="M2 7L6 11L12 3" stroke="#5b1e2d" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Continuity */}
+            <div className="mt-16 bg-ink text-ivory rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 relative overflow-hidden">
+              <div className="absolute inset-0 dot-pattern-light opacity-30 pointer-events-none"></div>
+              <div className="relative w-14 h-14 rounded-xl bg-carmesi/30 border border-carmesi/40 grid place-items-center shrink-0">
+                <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                  <rect x="3" y="5" width="20" height="16" rx="2" stroke="#f9faf7" strokeWidth="1.5"/>
+                  <path d="M3 10H23M8 14H14M8 17H17" stroke="#f9faf7" strokeWidth="1.5" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <div className="relative flex-1">
+                <div className="eyebrow text-carmesi-600/90" style={{color:'#d49aa6'}}>Continuidad post-roadmap</div>
+                <h4 className="h-display text-[24px] md:text-[28px] mt-2 leading-tight text-ivory">
+                  Scorecards mensuales para medir el avance del talento, mucho después del cierre del proyecto.
+                </h4>
+              </div>
+              <a href="#hero-form" className="relative btn-primary px-6 py-3 rounded-full text-[13px] font-semibold tracking-wide whitespace-nowrap">
+                Ver detalle →
+              </a>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    /* ───────────────────────── DELIVERABLES ───────────────────────── */
+
+    const Deliverables = () => {
+      const items = [
+        {
+          tag: 'Dashboard',
+          title: 'Dashboard de Toxicidad',
+          body: 'Visualice el índice de engagement de su organización en tiempo real, con alertas tempranas por área y por líder.',
+          viz: (
+            <svg viewBox="0 0 220 110" className="w-full">
+              <defs>
+                <linearGradient id="d1" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stopColor="#5b1e2d" stopOpacity="0.35"/>
+                  <stop offset="1" stopColor="#5b1e2d" stopOpacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 90 L20 80 L40 84 L60 60 L80 64 L100 40 L120 50 L140 28 L160 36 L180 18 L200 24 L220 14 L220 110 L0 110 Z" fill="url(#d1)"/>
+              <path d="M0 90 L20 80 L40 84 L60 60 L80 64 L100 40 L120 50 L140 28 L160 36 L180 18 L200 24 L220 14" stroke="#5b1e2d" strokeWidth="1.6" fill="none"/>
+              {[20,60,100,140,180].map((x,i)=>(<circle key={i} cx={x} cy={[80,60,40,28,18][i]} r="2.5" fill="#5b1e2d"/>))}
+            </svg>
+          )
+        },
+        {
+          tag: 'Reporte',
+          title: 'Reporte de Costos Ocultos',
+          body: 'Sepa exactamente cuánto dinero pierde por cada renuncia: pérdidas indirectas, reposición, curva de aprendizaje y oportunidad.',
+          viz: (
+            <svg viewBox="0 0 220 110" className="w-full">
+              <g>
+                {[
+                  {x:10,h:42,l:'Salida'},{x:50,h:58,l:'Reemp.'},{x:90,h:36,l:'Curva'},
+                  {x:130,h:74,l:'Oport.'},{x:170,h:50,l:'Cliente'}
+                ].map((b,i)=>(
+                  <g key={i}>
+                    <rect x={b.x} y={100-b.h} width="32" height={b.h} fill={i===3 ? '#5b1e2d' : '#5b1e2d33'} rx="2"/>
+                  </g>
+                ))}
+                <line x1="0" y1="100" x2="220" y2="100" stroke="#11182722" strokeWidth="1"/>
+              </g>
+            </svg>
+          )
+        },
+        {
+          tag: 'Matriz',
+          title: 'Matriz de Competencias',
+          body: 'Mapa detallado de las habilidades críticas de su organización, mostrando concentraciones de riesgo y brechas de cobertura.',
+          viz: (
+            <svg viewBox="0 0 220 110" className="w-full">
+              {Array.from({length:5}).map((_,r)=>(
+                Array.from({length:9}).map((_,c)=>{
+                  const v = (Math.sin((r*9+c)*0.7)+1)/2;
+                  return <rect key={r+'-'+c} x={10+c*22} y={10+r*18} width="18" height="14" fill="#5b1e2d" opacity={0.12 + v*0.55} rx="1.5"/>
+                })
+              ))}
+            </svg>
+          )
+        },
+        {
+          tag: 'Manual',
+          title: 'Manual de Rituales',
+          body: 'Guía práctica para liderar reuniones efectivas, dar feedback continuo y cerrar ciclos de desempeño sin fricción.',
+          viz: (
+            <svg viewBox="0 0 220 110" className="w-full">
+              <rect x="35" y="14" width="140" height="84" rx="3" fill="#fff" stroke="#11182722"/>
+              <rect x="35" y="14" width="140" height="14" fill="#5b1e2d"/>
+              {[40,52,64,76,88].map((y,i)=>(
+                <rect key={i} x="48" y={y-5+3} width={i===1?70:i===3?80:100} height="3" fill="#11182722" rx="1.5"/>
+              ))}
+              <circle cx="155" cy="86" r="6" fill="none" stroke="#5b1e2d" strokeWidth="1.5"/>
+              <path d="M152 86l2 2 4-4" stroke="#5b1e2d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )
+        },
+      ];
+      return (
+        <section id="entregables" className="py-24 md:py-32 relative">
+          <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+              <div>
+                <Eyebrow>Valor agregado · Entregables</Eyebrow>
+                <h2 className="h-display text-[40px] md:text-[52px] mt-5 text-ink leading-[1.05] text-balance">
+                  Cuatro artefactos que <em className="italic font-normal text-carmesi">quedan</em><br/>en su organización.
+                </h2>
+              </div>
+              <p className="md:max-w-[34ch] text-ink/65 leading-relaxed">
+                Cada uno es propiedad intelectual de su empresa al cierre del programa. No dependen de Intelecta para seguir produciendo valor.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {items.map((it, i) => (
+                <article key={i} className="bg-ivory border border-ink/8 rounded-3xl p-7 md:p-9 lift">
+                  <div className="flex items-center justify-between">
+                    <span className="eyebrow text-carmesi">{it.tag}</span>
+                    <span className="phase-num text-mist/40 text-[24px]">{String(i+1).padStart(2,'0')}</span>
+                  </div>
+                  <h3 className="h-display text-[26px] md:text-[28px] mt-4 text-ink leading-tight">{it.title}</h3>
+                  <p className="text-ink/65 text-[14.5px] mt-3 leading-relaxed">{it.body}</p>
+                  <div className="mt-7 rounded-xl bg-ivory-100 border border-ink/6 p-5">
+                    {it.viz}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    /* ───────────────────────── BENTO SOCIAL PROOF ───────────────────────── */
+
+    const Bento = () => {
+      const onMove = (e) => {
+        const el = e.currentTarget;
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      };
+      return (
+        <section id="prueba" className="py-24 md:py-32 bg-ivory-100 relative">
+          <div className="max-w-[1280px] mx-auto px-6 md:px-10">
+            <Eyebrow>Resultados &amp; respaldo</Eyebrow>
+            <h2 className="h-display text-[40px] md:text-[52px] mt-5 text-ink leading-[1.05] text-balance max-w-[24ch]">
+              Lo que sostiene la <em className="italic font-normal text-carmesi">credibilidad</em> de Intelecta.
+            </h2>
+
+            <div className="mt-14 grid md:grid-cols-12 gap-5">
+              {/* Big saving block */}
+              <div onMouseMove={onMove} className="bento md:col-span-8 bg-ink text-ivory rounded-3xl p-10 md:p-12 relative overflow-hidden">
+                <div className="absolute -right-20 -bottom-32 w-[460px] h-[460px] rounded-full bg-carmesi/30 blur-3xl"></div>
+                <div className="absolute top-6 right-6 dot-pattern-light w-[240px] h-[120px] opacity-50 rounded-lg"></div>
+                <Eyebrow dark>Ahorro operativo verificable</Eyebrow>
+                <div className="mt-8 flex items-baseline gap-3 num">
+                  <span className="h-display text-[80px] md:text-[120px] text-ivory leading-none">$45K</span>
+                  <span className="text-mist text-[16px]">USD / año</span>
+                </div>
+                <p className="mt-6 text-[18px] md:text-[20px] text-ivory/85 leading-relaxed max-w-[55ch] h-display font-normal italic">
+                  “Nuestra metodología puede representar un ahorro directo de hasta <span className="not-italic font-semibold text-ivory">$45.000 USD anuales</span> al prevenir la rotación de sólo <span className="not-italic font-semibold text-ivory">3 cargos directivos</span>.”
+                </p>
+                <div className="rule-dark my-8"></div>
+                <div className="grid grid-cols-3 gap-6">
+                  <Mini num="3×" label="cargos directivos retenidos" dark />
+                  <Mini num="12w" label="duración del programa" dark />
+                  <Mini num="90d" label="plan de acción" dark />
+                </div>
+              </div>
+
+              {/* Endorsement */}
+              <div onMouseMove={onMove} className="bento md:col-span-4 bg-ivory border border-ink/10 rounded-3xl p-9 md:p-10 relative overflow-hidden flex flex-col">
+                <div className="absolute -top-10 -right-10 w-[200px] h-[200px] dot-pattern-ivory opacity-70"></div>
+                <Eyebrow>Aval académico</Eyebrow>
+                <h3 className="h-display text-[24px] md:text-[26px] mt-5 text-ink leading-tight">
+                  Consultoría desarrollada bajo los estándares de <span className="text-carmesi">INTELECTA · Marketing Digital</span> y la <span className="text-carmesi">Escuela Colombiana de Ingeniería Julio Garavito</span>.
+                </h3>
+                <div className="mt-auto pt-8">
+                  <div className="rule mb-6"></div>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl border border-ink/15 bg-ivory-100 grid place-items-center">
+                      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                        <path d="M11 2L20 6L11 10L2 6L11 2Z" stroke="#5b1e2d" strokeWidth="1.5" strokeLinejoin="round"/>
+                        <path d="M5 8V13C5 13 7.5 16 11 16C14.5 16 17 13 17 13V8" stroke="#5b1e2d" strokeWidth="1.5" strokeLinejoin="round"/>
+                        <path d="M20 6V12" stroke="#5b1e2d" strokeWidth="1.5" strokeLinecap="round"/>
+                      </svg>
+                    </div>
+                    <div className="text-[12px] text-mist leading-tight">
+                      Programa con respaldo<br/>académico e industrial
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Three small metric tiles */}
+              <div onMouseMove={onMove} className="bento md:col-span-4 bg-carmesi text-ivory rounded-3xl p-8 relative overflow-hidden">
+                <div className="absolute inset-0 dot-pattern-light opacity-25"></div>
+                <Eyebrow dark>Segmento</Eyebrow>
+                <div className="h-display text-[48px] md:text-[56px] num mt-4">50–500</div>
+                <p className="text-ivory/80 text-[14px] mt-1">empleados en empresas de tecnología, fintech, agencias y manufactura especializada.</p>
+              </div>
+              <div onMouseMove={onMove} className="bento md:col-span-4 bg-ivory border border-ink/10 rounded-3xl p-8">
+                <Eyebrow>Inversión</Eyebrow>
+                <div className="h-display text-[48px] md:text-[56px] num mt-4 text-ink">$12–18K</div>
+                <p className="text-ink/70 text-[14px] mt-1">USD según problemática y servicios especializados requeridos.</p>
+              </div>
+              <div onMouseMove={onMove} className="bento md:col-span-4 bg-ink text-ivory rounded-3xl p-8 relative overflow-hidden">
+                <div className="absolute -top-10 -right-10 dot-pattern-light w-[200px] h-[200px] opacity-30"></div>
+                <Eyebrow dark>Cobertura</Eyebrow>
+                <div className="h-display text-[42px] md:text-[48px] mt-4 leading-tight">Bogotá, <em className="italic text-carmesi-600/90" style={{color:'#e7b6c1'}}>Colombia</em></div>
+                <p className="text-mist text-[14px] mt-2">Con expansión a hubs tecnológicos, parques industriales y distritos financieros.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Mini = ({ num, label, dark }) => (
+      <div>
+        <div className={`h-display text-[32px] num leading-none ${dark ? 'text-ivory' : 'text-ink'}`}>{num}</div>
+        <div className={`text-[12px] mt-1.5 max-w-[18ch] leading-snug ${dark ? 'text-mist' : 'text-ink/60'}`}>{label}</div>
+      </div>
+    );
+
+    /* ───────────────────────── FAQ ───────────────────────── */
+
+    const FAQ = () => {
+      const qa = [
+        { q:'¿Tiempo de implementación?',
+          a:'El Roadmap de Transformación está diseñado para ejecutarse en un plan de acción de 90 días, donde se establecen dueños de procesos, métricas e instalan rituales de feedback con cadencia semanal y mensual.' },
+        { q:'¿Cuánto tarda el servicio completo?',
+          a:'El proceso completo tiene una duración de 12 semanas, divididas en tres etapas: Diagnóstico (4 semanas), Arquitectura (3 semanas) y Roadmap (5 semanas). Posterior a ello, scorecards mensuales mantienen el seguimiento.' },
+        { q:'¿Funciona en mi territorio?',
+          a:'Nuestra operación inicial es en Bogotá, Colombia, con total capacidad de expansión a ciudades con alta densidad de hubs tecnológicos, parques industriales y distritos financieros. Trabajamos en formato híbrido o remoto cuando se requiere.' },
+        { q:'¿Cuánto cuesta el programa?',
+          a:'La inversión oscila entre los $12.000 y $18.000 USD dependiendo de la problemática específica diagnosticada y de los servicios especializados requeridos por su organización. El diagnóstico inicial no tiene costo.' },
+      ];
+      return (
+        <section id="faq" className="py-24 md:py-32 relative">
+          <div className="max-w-[1080px] mx-auto px-6 md:px-10">
+            <div className="text-center max-w-[640px] mx-auto">
+              <Eyebrow className="justify-center"><span>Preguntas frecuentes</span></Eyebrow>
+              <h2 className="h-display text-[40px] md:text-[52px] mt-5 text-ink leading-[1.05] text-balance">
+                Las dudas más comunes <em className="italic font-normal text-carmesi">del comité</em> directivo.
+              </h2>
+            </div>
+
+            <div className="mt-14 divide-y divide-ink/10 border-y border-ink/10">
+              {qa.map((it, i) => (
+                <details key={i} className="group py-2">
+                  <summary className="flex items-start justify-between gap-6 py-6 md:py-7">
+                    <div className="flex items-start gap-5 md:gap-7">
+                      <span className="phase-num text-carmesi text-[20px] md:text-[24px] num pt-0.5">0{i+1}</span>
+                      <h3 className="h-display text-[22px] md:text-[26px] text-ink leading-snug">{it.q}</h3>
+                    </div>
+                    <span className="acc-icon w-10 h-10 rounded-full border border-ink/15 grid place-items-center text-carmesi shrink-0 group-hover:border-carmesi/40 transition">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1V13M1 7H13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/></svg>
+                    </span>
+                  </summary>
+                  <div className="acc-body pl-0 md:pl-14 pb-7 pr-14">
+                    <p className="text-ink/70 text-[15.5px] leading-relaxed max-w-[68ch]">{it.a}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    /* ───────────────────────── FINAL CTA + FOOTER ───────────────────────── */
+
+    const FinalCTA = () => (
+      <section className="relative">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-24 md:py-32">
+          <div className="relative overflow-hidden bg-ink text-ivory rounded-[28px] p-10 md:p-16 lg:p-20">
+            <div className="absolute inset-0 dot-pattern-light opacity-40"></div>
+            <div className="absolute -right-40 -top-40 w-[520px] h-[520px] rounded-full bg-carmesi/25 blur-3xl"></div>
+            <div className="absolute -left-20 -bottom-32 w-[360px] h-[360px] rounded-full bg-carmesi/15 blur-3xl"></div>
+
+            <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
+              <div>
+                <Eyebrow dark>El siguiente paso</Eyebrow>
+                <h2 className="h-display text-[42px] md:text-[64px] lg:text-[72px] mt-5 leading-[1.02] text-ivory text-balance">
+                  Lo que cuesta <em className="italic font-normal text-carmesi-600/90" style={{color:'#e7b6c1'}}>esperar</em> es siempre más caro que lo que cuesta <span className="underline decoration-carmesi decoration-4 underline-offset-8">empezar</span>.
+                </h2>
+                <p className="mt-7 text-mist text-[16px] md:text-[17px] leading-relaxed max-w-[55ch]">
+                  Reserve una de las 6 sesiones trimestrales de diagnóstico ejecutivo. Identificaremos sus tres riesgos de rotación más críticos en una sola sesión confidencial.
+                </p>
+              </div>
+              <div className="flex flex-col items-start lg:items-end gap-5">
+                <a href="#hero-form" className="btn-primary rounded-full px-8 md:px-10 py-5 md:py-6 text-[15px] md:text-[16px] font-semibold tracking-wide inline-flex items-center gap-3 text-ivory">
+                  Agendar Diagnóstico de Riesgos
+                  <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+                <div className="text-[12px] text-mist max-w-[28ch] lg:text-right">
+                  Sin costo · Sin compromiso<br/>
+                  Sesión confidencial de 60 minutos
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Footer = () => (
+      <footer className="bg-ink text-ivory border-t border-ivory/8">
+        <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-16">
+          <div className="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 md:gap-14">
+            <div>
+              <Logo dark size={28} withTagline />
+              <p className="mt-5 text-mist text-[14px] leading-relaxed max-w-[40ch]">
+                Consultoría en retención de talento crítico, seguridad psicológica y cultura de alto rendimiento para empresas en expansión.
+              </p>
+            </div>
+            <FooterCol title="Servicios" items={[
+              'Diagnóstico de Riesgos','Arquitectura organizacional','Roadmap 90 días','Scorecards mensuales',
+            ]}/>
+            <FooterCol title="Compañía" items={[
+              'El método','Casos de uso','Manual de marca','Privacidad',
+            ]}/>
+            <FooterCol title="Contacto" items={[
+              'hola@intelecta.co','+57 (1) 000 0000','Bogotá, Colombia',
+            ]}/>
+          </div>
+
+          <div className="rule-dark my-12"></div>
+
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="text-[12px] text-mist">
+              © 2026 Intelecta Business Consulting · Todos los derechos reservados.
+            </div>
+            <div className="text-[12px] text-mist flex gap-6">
+              <a href="#" className="hover:text-ivory">Términos</a>
+              <a href="#" className="hover:text-ivory">Privacidad</a>
+              <a href="#" className="hover:text-ivory">Aviso legal</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    );
+
+    const FooterCol = ({ title, items }) => (
+      <div>
+        <div className="eyebrow text-ivory/70">{title}</div>
+        <ul className="mt-5 space-y-3">
+          {items.map((it, i) => (
+            <li key={i}><a href="#" className="text-[14px] text-mist hover:text-ivory transition">{it}</a></li>
+          ))}
+        </ul>
+      </div>
+    );
+
+    /* ───────────────────────── APP ───────────────────────── */
+
+    const App = () => {
+      // Reveal-on-scroll
+      useEffect(() => {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+        }, { rootMargin: '0px 0px -10% 0px' });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+        return () => io.disconnect();
+      }, []);
+
+      return (
+        <>
+          <Nav />
+          <main>
+            <Hero />
+            <Problem />
+            <Value />
+            <Method />
+            <Deliverables />
+            <Bento />
+            <FAQ />
+            <FinalCTA />
+          </main>
+          <Footer />
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
