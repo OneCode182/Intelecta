@@ -7,6 +7,7 @@ const NAV_LINKS = [
   ['#metodo', 'Método'],
   ['#entregables', 'Entregables'],
   ['#prueba', 'Resultados'],
+  ['#nosotros', 'Nosotros'],
   ['#faq', 'Preguntas'],
 ];
 

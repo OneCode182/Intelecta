@@ -5,6 +5,7 @@ import Value from './components/Value';
 import Method from './components/Method';
 import Deliverables from './components/Deliverables';
 import Bento from './components/Bento';
+import AboutUs from './components/AboutUs';
 import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
@@ -20,6 +21,7 @@ export default function App() {
         <Method />
         <Deliverables />
         <Bento />
+        <AboutUs />
         <FAQ />
         <FinalCTA />
       </main>
