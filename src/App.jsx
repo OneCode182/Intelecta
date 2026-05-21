@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import Problem from './components/Problem';
@@ -11,9 +12,21 @@ import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 
 export default function App() {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle('dark', theme === 'dark');
+    root.dataset.theme = theme;
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
   return (
     <>
-      <Nav />
+      <Nav theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Hero />
         <Problem />
@@ -21,7 +34,7 @@ export default function App() {
         <Method />
         <Deliverables />
         <Bento />
-        <AboutUs />
+        <AboutUs theme={theme} />
         <FAQ />
         <FinalCTA />
       </main>

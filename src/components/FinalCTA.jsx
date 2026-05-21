@@ -3,12 +3,12 @@ import Eyebrow from './ui/Eyebrow';
 
 export default function FinalCTA() {
   return (
-    <section className="relative">
+    <section className="relative bg-ivory dark:bg-ink transition-colors duration-300">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-24 md:py-32">
-        <div className="relative overflow-hidden bg-ink text-ivory rounded-[28px] p-10 md:p-16 lg:p-20 grain">
-          <div className="absolute inset-0 dot-pattern-light opacity-40" />
-          <Parallax speed={0.15} className="absolute -right-40 -top-40 w-[520px] h-[520px] rounded-full bg-carmesi/25 blur-3xl" />
-          <Parallax speed={0.1} className="absolute -left-20 -bottom-32 w-[360px] h-[360px] rounded-full bg-carmesi/15 blur-3xl" />
+        <div className="relative overflow-hidden bg-ink dark:bg-ink-800 text-ivory rounded-[28px] p-10 md:p-16 lg:p-20 grain transition-all duration-300 dark:ring-1 dark:ring-inset dark:ring-ivory/10 dark:shadow-[0_30px_80px_-40px_rgba(0,0,0,0.5)]">
+          <div className="absolute inset-0 dot-pattern-light opacity-40 dark:opacity-15" />
+          <Parallax speed={0.15} className="absolute -right-40 -top-40 w-[520px] h-[520px] rounded-full bg-carmesi/25 dark:bg-carmesi-200/15 blur-3xl" />
+          <Parallax speed={0.1} className="absolute -left-20 -bottom-32 w-[360px] h-[360px] rounded-full bg-carmesi/15 dark:bg-carmesi-200/10 blur-3xl" />
 
           <div className="relative grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
             <div>
@@ -22,7 +22,7 @@ export default function FinalCTA() {
                     esperar
                   </em>{' '}
                   es siempre más caro que lo que cuesta{' '}
-                  <span className="underline decoration-carmesi decoration-4 underline-offset-8">empezar</span>.
+                  <span className="underline decoration-carmesi dark:decoration-carmesi-200 decoration-4 underline-offset-8">empezar</span>.
                 </h2>
               </FadeIn>
               <FadeIn delay={0.25}>

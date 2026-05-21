@@ -27,16 +27,16 @@ const PHASES = [
 
 function CheckIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="mt-1 shrink-0">
-      <path d="M2 7L6 11L12 3" stroke="#5b1e2d" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="mt-1 shrink-0 text-carmesi dark:text-carmesi-200">
+      <path d="M2 7L6 11L12 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
 export default function Method() {
   return (
-    <section id="metodo" className="bg-ivory-100 py-24 md:py-32 relative overflow-hidden">
-      <Parallax speed={0.1} className="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[200px] dot-pattern-ivory opacity-60 pointer-events-none" />
+    <section id="metodo" className="bg-ivory-100 dark:bg-ink-800 py-24 md:py-32 relative overflow-hidden transition-colors duration-300">
+      <Parallax speed={0.1} className="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[200px] dot-pattern-ivory dark:dot-pattern-light opacity-60 dark:opacity-20 pointer-events-none" />
 
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-10">
         <div className="text-center max-w-[760px] mx-auto">
@@ -46,12 +46,12 @@ export default function Method() {
             </Eyebrow>
           </FadeIn>
           <FadeIn delay={0.1}>
-            <h2 className="h-display text-[40px] md:text-[54px] mt-5 text-ink leading-[1.05] text-balance">
-              Tres fases. Un sistema. <em className="italic font-normal text-carmesi">Resultados medibles</em>.
+            <h2 className="h-display text-[40px] md:text-[54px] mt-5 text-ink dark:text-ivory leading-[1.05] text-balance">
+              Tres fases. Un sistema. <em className="italic font-normal text-carmesi dark:text-carmesi-200">Resultados medibles</em>.
             </h2>
           </FadeIn>
           <FadeIn delay={0.2}>
-            <p className="mt-6 text-ink/65 text-[16px] md:text-[17px] leading-relaxed">
+            <p className="mt-6 text-ink/65 dark:text-ivory/65 text-[16px] md:text-[17px] leading-relaxed">
               Un proceso estructurado que convierte la incertidumbre cultural en una hoja de ruta operativa con dueños,
               plazos y métricas.
             </p>
@@ -59,15 +59,15 @@ export default function Method() {
         </div>
 
         <div className="mt-20 relative">
-          <div className="hidden md:block absolute top-[42px] left-[8%] right-[8%] h-px bg-ink/15" />
-          <div className="hidden md:block absolute top-[39px] left-[8%] w-[60%] h-[7px] bg-gradient-to-r from-carmesi to-carmesi/30 rounded-full" />
+          <div className="hidden md:block absolute top-[42px] left-[8%] right-[8%] h-px bg-ink/15 dark:bg-ivory/15" />
+          <div className="hidden md:block absolute top-[39px] left-[8%] w-[60%] h-[7px] bg-gradient-to-r from-carmesi dark:from-carmesi-200 to-carmesi/30 dark:to-carmesi-200/30 rounded-full" />
 
           <StaggerGroup className="grid md:grid-cols-3 gap-10 md:gap-8 relative">
             {PHASES.map((p, i) => (
               <StaggerItem key={i} className="relative">
                 <div className="flex md:justify-center mb-8 md:mb-12 relative z-10">
-                  <div className="w-[88px] h-[88px] rounded-full bg-ivory border border-ink/10 grid place-items-center shadow-[0_18px_40px_-22px_rgba(91,30,45,0.4)]">
-                    <div className="w-[64px] h-[64px] rounded-full bg-carmesi text-ivory grid place-items-center">
+                  <div className="w-[88px] h-[88px] rounded-full bg-ivory dark:bg-ink-800 border border-ink/10 dark:border-ivory/10 grid place-items-center shadow-[0_18px_40px_-22px_rgba(91,30,45,0.4)] dark:shadow-[0_18px_40px_-22px_rgba(0,0,0,0.6)]">
+                    <div className="w-[64px] h-[64px] rounded-full bg-carmesi dark:bg-carmesi-200 text-ivory dark:text-ink grid place-items-center transition-colors duration-300">
                       <div className="text-center leading-none">
                         <div className="phase-num text-[28px] italic">{String(i + 1).padStart(2, '0')}</div>
                       </div>
@@ -75,17 +75,17 @@ export default function Method() {
                   </div>
                 </div>
 
-                <div className="bg-ivory border border-ink/8 rounded-2xl p-7 md:p-8 lift">
+                <div className="bg-ivory dark:bg-ink border border-ink/8 dark:border-ivory/8 rounded-2xl p-7 md:p-8 lift">
                   <div className="flex items-center justify-between">
-                    <span className="eyebrow text-carmesi">{p.tag}</span>
+                    <span className="eyebrow text-carmesi dark:text-carmesi-200">{p.tag}</span>
                     <span className="text-[12px] text-mist font-medium">{p.weeks}</span>
                   </div>
-                  <h3 className="h-display text-[28px] md:text-[30px] mt-4 text-ink">{p.title}</h3>
-                  <p className="text-ink/65 text-[14.5px] mt-3 leading-relaxed">{p.body}</p>
+                  <h3 className="h-display text-[28px] md:text-[30px] mt-4 text-ink dark:text-ivory">{p.title}</h3>
+                  <p className="text-ink/65 dark:text-ivory/65 text-[14.5px] mt-3 leading-relaxed">{p.body}</p>
 
                   <ul className="mt-6 space-y-2.5">
                     {p.bullets.map((b, j) => (
-                      <li key={j} className="flex items-start gap-3 text-[14px] text-ink/80">
+                      <li key={j} className="flex items-start gap-3 text-[14px] text-ink/80 dark:text-ivory/80">
                         <CheckIcon />
                         {b}
                       </li>

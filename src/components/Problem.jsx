@@ -37,7 +37,7 @@ export default function Problem() {
               <span className="text-ivory num">80%</span>{' '}
               <span className="text-mist">de su tiempo resolviendo</span> conflictos internos{' '}
               <span className="text-mist">o buscando reemplazos para</span> gente clave
-              <span className="text-carmesi">?</span>
+              <span className="text-carmesi dark:text-carmesi-200">?</span>
             </h2>
           </FadeIn>
 
@@ -55,7 +55,7 @@ export default function Problem() {
           {PAINS.map((p) => (
             <StaggerItem key={p.k} className="bg-ink p-8 md:p-10 lift border border-transparent">
               <div className="flex items-baseline gap-4">
-                <span className="phase-num text-carmesi text-[44px] leading-none">{p.k}</span>
+                <span className="phase-num text-carmesi dark:text-carmesi-200 text-[44px] leading-none">{p.k}</span>
                 <div className="h-px flex-1 bg-ivory/15 translate-y-[-6px]" />
               </div>
               <h3 className="h-display text-[22px] md:text-[24px] mt-6 text-ivory leading-tight">{p.t}</h3>

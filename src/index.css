@@ -13,6 +13,12 @@ body {
   color: #111827;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background: #111827;
+  color: #f9faf7;
 }
 
 /* ── Typography ── */
@@ -112,6 +118,12 @@ body {
   background: #fff;
 }
 
+.dark .field:focus {
+  border-color: #e7b6c1;
+  box-shadow: 0 0 0 4px rgba(231,182,193,.15);
+  background: #1a2230;
+}
+
 /* ── Accordion ── */
 details > summary {
   list-style: none;
@@ -173,6 +185,10 @@ details[open] .acc-body {
   opacity: 1;
 }
 
+.dark .bento::before {
+  background: radial-gradient(600px 200px at var(--mx, 50%) var(--my, 0%), rgba(231,182,193,.12), transparent 60%);
+}
+
 /* ── Animation Enhancements ── */
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
@@ -230,6 +246,10 @@ details[open] .acc-body {
   background: linear-gradient(to bottom, var(--fade-from, #f9faf7), transparent);
   pointer-events: none;
   z-index: 1;
+}
+
+.dark {
+  --fade-from: #111827;
 }
 
 /* Enhanced glassmorphism for nav */

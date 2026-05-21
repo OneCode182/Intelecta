@@ -20,7 +20,7 @@ function FooterCol({ title, items }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-ink text-ivory border-t border-ivory/8">
+    <footer className="bg-ink dark:bg-ink-900 text-ivory border-t border-ivory/8 dark:border-ivory/5 transition-colors duration-300">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10 py-16">
         <FadeIn>
           <div className="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 md:gap-14">

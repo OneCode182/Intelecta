@@ -28,18 +28,18 @@ export default function HeroForm() {
           initial={{ opacity: 0, scale: 0.95, filter: 'blur(8px)' }}
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-white border border-ink/10 rounded-2xl p-8 md:p-9 shadow-[0_30px_80px_-40px_rgba(17,24,39,0.25)]"
+          className="bg-white dark:bg-ink-800 border border-ink/10 dark:border-ivory/10 rounded-2xl p-8 md:p-9 shadow-[0_30px_80px_-40px_rgba(17,24,39,0.25)] dark:shadow-[0_30px_80px_-40px_rgba(0,0,0,0.4)]"
         >
           <Eyebrow>Solicitud recibida</Eyebrow>
-          <h3 className="h-display text-[28px] mt-3 text-ink">Gracias, {form.name.split(' ')[0]}.</h3>
-          <p className="text-ink/70 mt-2 leading-relaxed">
+          <h3 className="h-display text-[28px] mt-3 text-ink dark:text-ivory">Gracias, {form.name.split(' ')[0]}.</h3>
+          <p className="text-ink/70 dark:text-ivory/70 mt-2 leading-relaxed">
             Un consultor senior se pondrá en contacto en menos de 24 horas hábiles para coordinar su{' '}
-            <span className="text-carmesi font-semibold">Diagnóstico de Riesgos</span>.
+            <span className="text-carmesi dark:text-carmesi-200 font-semibold">Diagnóstico de Riesgos</span>.
           </p>
           <div className="rule my-6" />
           <div className="text-sm text-mist">
             Mientras tanto, conozca cómo trabajamos en{' '}
-            <a href="#metodo" className="text-carmesi font-semibold hover:underline">
+            <a href="#metodo" className="text-carmesi dark:text-carmesi-200 font-semibold hover:underline">
               nuestro método de 12 semanas →
             </a>
           </div>
@@ -51,15 +51,15 @@ export default function HeroForm() {
           transition={{ duration: 0.3 }}
           onSubmit={submit}
           id="hero-form"
-          className="bg-white border border-ink/10 rounded-2xl p-7 md:p-8 shadow-[0_30px_80px_-40px_rgba(17,24,39,0.25)] relative"
+          className="bg-white dark:bg-ink-800 border border-ink/10 dark:border-ivory/10 rounded-2xl p-7 md:p-8 shadow-[0_30px_80px_-40px_rgba(17,24,39,0.25)] dark:shadow-[0_30px_80px_-40px_rgba(0,0,0,0.4)] relative"
         >
-          <div className="absolute -top-3 left-7 bg-carmesi text-ivory eyebrow px-3 py-1.5 rounded-full">
+          <div className="absolute -top-3 left-7 bg-carmesi dark:bg-carmesi-200 text-ivory dark:text-ink eyebrow px-3 py-1.5 rounded-full transition-colors duration-300">
             Diagnóstico sin costo
           </div>
-          <h3 className="h-display text-[26px] md:text-[28px] text-ink leading-tight">
-            Agende su <em className="font-normal italic text-carmesi">diagnóstico</em> ejecutivo
+          <h3 className="h-display text-[26px] md:text-[28px] text-ink dark:text-ivory leading-tight">
+            Agende su <em className="font-normal italic text-carmesi dark:text-carmesi-200">diagnóstico</em> ejecutivo
           </h3>
-          <p className="text-sm text-ink/60 mt-2 mb-6 leading-relaxed">
+          <p className="text-sm text-ink/60 dark:text-ivory/60 mt-2 mb-6 leading-relaxed">
             Reservamos sólo 6 sesiones por trimestre. Confidencialidad garantizada.
           </p>
 

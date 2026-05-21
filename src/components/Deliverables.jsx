@@ -7,11 +7,11 @@ const ITEMS = [
     title: 'Dashboard de Toxicidad',
     body: 'Visualice el índice de engagement de su organización en tiempo real, con alertas tempranas por área y por líder.',
     viz: (
-      <svg viewBox="0 0 220 110" className="w-full">
+      <svg viewBox="0 0 220 110" className="w-full text-carmesi dark:text-carmesi-200">
         <defs>
           <linearGradient id="d1" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="#5b1e2d" stopOpacity="0.35" />
-            <stop offset="1" stopColor="#5b1e2d" stopOpacity="0" />
+            <stop offset="0" stopColor="currentColor" stopOpacity="0.35" />
+            <stop offset="1" stopColor="currentColor" stopOpacity="0" />
           </linearGradient>
         </defs>
         <path
@@ -20,12 +20,12 @@ const ITEMS = [
         />
         <path
           d="M0 90 L20 80 L40 84 L60 60 L80 64 L100 40 L120 50 L140 28 L160 36 L180 18 L200 24 L220 14"
-          stroke="#5b1e2d"
+          stroke="currentColor"
           strokeWidth="1.6"
           fill="none"
         />
         {[20, 60, 100, 140, 180].map((x, i) => (
-          <circle key={i} cx={x} cy={[80, 60, 40, 28, 18][i]} r="2.5" fill="#5b1e2d" />
+          <circle key={i} cx={x} cy={[80, 60, 40, 28, 18][i]} r="2.5" fill="currentColor" />
         ))}
       </svg>
     ),
@@ -35,7 +35,7 @@ const ITEMS = [
     title: 'Reporte de Costos Ocultos',
     body: 'Sepa exactamente cuánto dinero pierde por cada renuncia: pérdidas indirectas, reposición, curva de aprendizaje y oportunidad.',
     viz: (
-      <svg viewBox="0 0 220 110" className="w-full">
+      <svg viewBox="0 0 220 110" className="w-full text-carmesi dark:text-carmesi-200">
         <g>
           {[
             { x: 10, h: 42, l: 'Salida' },
@@ -45,10 +45,10 @@ const ITEMS = [
             { x: 170, h: 50, l: 'Cliente' },
           ].map((b, i) => (
             <g key={i}>
-              <rect x={b.x} y={100 - b.h} width="32" height={b.h} fill={i === 3 ? '#5b1e2d' : '#5b1e2d33'} rx="2" />
+              <rect x={b.x} y={100 - b.h} width="32" height={b.h} fill="currentColor" fillOpacity={i === 3 ? 1 : 0.2} rx="2" />
             </g>
           ))}
-          <line x1="0" y1="100" x2="220" y2="100" stroke="#11182722" strokeWidth="1" />
+          <line x1="0" y1="100" x2="220" y2="100" stroke="currentColor" strokeWidth="1" className="text-ink/10 dark:text-ivory/10" />
         </g>
       </svg>
     ),
@@ -58,7 +58,7 @@ const ITEMS = [
     title: 'Matriz de Competencias',
     body: 'Mapa detallado de las habilidades críticas de su organización, mostrando concentraciones de riesgo y brechas de cobertura.',
     viz: (
-      <svg viewBox="0 0 220 110" className="w-full">
+      <svg viewBox="0 0 220 110" className="w-full text-carmesi dark:text-carmesi-200">
         {Array.from({ length: 5 }).map((_, r) =>
           Array.from({ length: 9 }).map((_, c) => {
             const v = (Math.sin((r * 9 + c) * 0.7) + 1) / 2;
@@ -69,7 +69,7 @@ const ITEMS = [
                 y={10 + r * 18}
                 width="18"
                 height="14"
-                fill="#5b1e2d"
+                fill="currentColor"
                 opacity={0.12 + v * 0.55}
                 rx="1.5"
               />
@@ -85,8 +85,8 @@ const ITEMS = [
     body: 'Guía práctica para liderar reuniones efectivas, dar feedback continuo y cerrar ciclos de desempeño sin fricción.',
     viz: (
       <svg viewBox="0 0 220 110" className="w-full">
-        <rect x="35" y="14" width="140" height="84" rx="3" fill="#fff" stroke="#11182722" />
-        <rect x="35" y="14" width="140" height="14" fill="#5b1e2d" />
+        <rect x="35" y="14" width="140" height="84" rx="3" fill="currentColor" stroke="currentColor" strokeWidth="1" className="text-white dark:text-ink-800 stroke-ink/10 dark:stroke-ivory/10" />
+        <rect x="35" y="14" width="140" height="14" fill="currentColor" className="text-carmesi dark:text-carmesi-200" />
         {[40, 52, 64, 76, 88].map((y, i) => (
           <rect
             key={i}
@@ -94,12 +94,13 @@ const ITEMS = [
             y={y - 5 + 3}
             width={i === 1 ? 70 : i === 3 ? 80 : 100}
             height="3"
-            fill="#11182722"
+            fill="currentColor"
+            className="text-ink/12 dark:text-ivory/12"
             rx="1.5"
           />
         ))}
-        <circle cx="155" cy="86" r="6" fill="none" stroke="#5b1e2d" strokeWidth="1.5" />
-        <path d="M152 86l2 2 4-4" stroke="#5b1e2d" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="155" cy="86" r="6" fill="none" stroke="currentColor" className="text-carmesi dark:text-carmesi-200" strokeWidth="1.5" />
+        <path d="M152 86l2 2 4-4" stroke="currentColor" className="text-carmesi dark:text-carmesi-200" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -107,7 +108,7 @@ const ITEMS = [
 
 export default function Deliverables() {
   return (
-    <section id="entregables" className="py-24 md:py-32 relative">
+    <section id="entregables" className="py-24 md:py-32 relative dark:bg-ink">
       <div className="max-w-[1280px] mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
           <div>
@@ -115,15 +116,15 @@ export default function Deliverables() {
               <Eyebrow>Valor agregado · Entregables</Eyebrow>
             </FadeIn>
             <FadeIn delay={0.1}>
-              <h2 className="h-display text-[40px] md:text-[52px] mt-5 text-ink leading-[1.05] text-balance">
-                Cuatro artefactos que <em className="italic font-normal text-carmesi">quedan</em>
+              <h2 className="h-display text-[40px] md:text-[52px] mt-5 text-ink dark:text-ivory leading-[1.05] text-balance">
+                Cuatro artefactos que <em className="italic font-normal text-carmesi dark:text-carmesi-200">quedan</em>
                 <br />
                 en su organización.
               </h2>
             </FadeIn>
           </div>
           <FadeIn delay={0.2}>
-            <p className="md:max-w-[34ch] text-ink/65 leading-relaxed">
+            <p className="md:max-w-[34ch] text-ink/65 dark:text-ivory/65 leading-relaxed">
               Cada uno es propiedad intelectual de su empresa al cierre del programa. No dependen de Intelecta para
               seguir produciendo valor.
             </p>
@@ -132,14 +133,14 @@ export default function Deliverables() {
 
         <StaggerGroup className="grid md:grid-cols-2 gap-6">
           {ITEMS.map((it, i) => (
-            <StaggerItem key={i} as="article" className="bg-ivory border border-ink/8 rounded-3xl p-7 md:p-9 lift">
+            <StaggerItem key={i} as="article" className="bg-ivory dark:bg-ink-800 border border-ink/8 dark:border-ivory/8 rounded-3xl p-7 md:p-9 lift">
               <div className="flex items-center justify-between">
-                <span className="eyebrow text-carmesi">{it.tag}</span>
+                <span className="eyebrow text-carmesi dark:text-carmesi-200">{it.tag}</span>
                 <span className="phase-num text-mist/40 text-[24px]">{String(i + 1).padStart(2, '0')}</span>
               </div>
-              <h3 className="h-display text-[26px] md:text-[28px] mt-4 text-ink leading-tight">{it.title}</h3>
-              <p className="text-ink/65 text-[14.5px] mt-3 leading-relaxed">{it.body}</p>
-              <div className="mt-7 rounded-xl bg-ivory-100 border border-ink/6 p-5">{it.viz}</div>
+              <h3 className="h-display text-[26px] md:text-[28px] mt-4 text-ink dark:text-ivory leading-tight">{it.title}</h3>
+              <p className="text-ink/65 dark:text-ivory/65 text-[14.5px] mt-3 leading-relaxed">{it.body}</p>
+              <div className="mt-7 rounded-xl bg-ivory-100 dark:bg-ink border border-ink/6 dark:border-ivory/6 p-5 transition-colors duration-300">{it.viz}</div>
             </StaggerItem>
           ))}
         </StaggerGroup>
