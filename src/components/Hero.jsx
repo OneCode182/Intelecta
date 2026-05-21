@@ -33,7 +33,7 @@ export default function Hero() {
               <span className="relative inline-block">
                 rendimiento
                 <svg className="absolute -bottom-2 left-0 w-full text-carmesi dark:text-carmesi-200" viewBox="0 0 220 10" preserveAspectRatio="none" height="8">
-                  <path d="M2 7 C 60 1, 160 1, 218 6" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                  <path className="draw-stroke" pathLength="1" d="M2 7 C 60 1, 160 1, 218 6" stroke="currentColor" strokeWidth="2.5" fill="none" strokeLinecap="round" />
                 </svg>
               </span>{' '}
               de su equipo.

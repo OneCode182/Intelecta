@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import Logo from './ui/Logo';
 
 const NAV_LINKS = [
@@ -14,6 +14,8 @@ const NAV_LINKS = [
 export default function Nav({ theme, toggleTheme }) {
   const [scrolled, setScrolled] = useState(false);
   const [openM, setOpenM] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scrollScale = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.2 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -50,13 +52,13 @@ export default function Nav({ theme, toggleTheme }) {
           <button
             type="button"
             onClick={toggleTheme}
-            className="w-10 h-10 grid place-items-center rounded-full border border-ink/15 dark:border-ivory/15 text-ink dark:text-ivory hover:bg-ink/5 dark:hover:bg-ivory/5 transition duration-200"
+            className="theme-toggle w-10 h-10 grid place-items-center rounded-full border border-ink/15 dark:border-ivory/15 text-ink dark:text-ivory hover:bg-ink/5 dark:hover:bg-ivory/5 transition duration-200"
             aria-label={theme === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema nocturno'}
             aria-pressed={theme === 'dark'}
           >
             {theme === 'dark' ? (
               // Sun icon
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-[spin_10s_linear_infinite]">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="5" />
                 <line x1="12" y1="1" x2="12" y2="3" />
                 <line x1="12" y1="21" x2="12" y2="23" />
@@ -69,7 +71,7 @@ export default function Nav({ theme, toggleTheme }) {
               </svg>
             ) : (
               // Moon icon
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="rotate-[-15deg] hover:rotate-0 transition duration-300">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
               </svg>
             )}
@@ -117,6 +119,11 @@ export default function Nav({ theme, toggleTheme }) {
           </motion.div>
         )}
       </AnimatePresence>
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleX: scrollScale }}
+        className="absolute left-0 bottom-0 h-[2px] w-full origin-left bg-gradient-to-r from-transparent via-carmesi to-transparent dark:via-carmesi-200"
+      />
     </motion.header>
   );
 }
